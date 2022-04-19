@@ -1,4 +1,4 @@
-# TTUGDSC
+# RaiderRide
 
 An effort to replace Texas Tech University's current ridesharing solution
 
