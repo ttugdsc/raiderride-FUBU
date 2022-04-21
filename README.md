@@ -26,6 +26,16 @@ Once design is finished we pivot to development
 
 First, install the dependencies
 
+``` yarn install ```
+
+Then build the app for the respective platform:
+
+``` yarn run ios ```
+
+or
+
+``` yarn run android```
+
 ## Learn More
 
 To learn more about React and React Native, take a look at the following resources:
