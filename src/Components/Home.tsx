@@ -16,9 +16,9 @@ const homeStyle = StyleSheet.create({
   overlayBottom: {
     backgroundColor: 'white',
     position: 'absolute',
-    bottom: 0,
+    bottom: -10,
     left: 0,
-    height: height - 390,
+    height: height - (2 * height) / 5 - 40,
     width: '100%',
     borderRadius: 16,
     shadowColor: '#000',
@@ -208,9 +208,12 @@ const Home = () => {
   return (
     <SafeAreaView style={style.container}>
       <MapView
-        style={[StyleSheet.absoluteFillObject, {height: 400, zIndex: -1}]}
-        provider={PROVIDER_GOOGLE}
+        style={[
+          StyleSheet.absoluteFillObject,
+          {height: (2 * height) / 5, zIndex: -1},
+        ]}
         userInterfaceStyle={'light'}
+        provider={PROVIDER_GOOGLE}
         customMapStyle={mapStyle}
         initialRegion={region}
         showsUserLocation={true}
