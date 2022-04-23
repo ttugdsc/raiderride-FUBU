@@ -16,9 +16,9 @@ const homeStyle = StyleSheet.create({
   overlayBottom: {
     backgroundColor: 'white',
     position: 'absolute',
-    bottom: -10,
+    bottom: 0,
     left: 0,
-    height: height - (2 * height) / 5 - 40,
+    height: height - (2 * height) / 5 + 20,
     width: '100%',
     borderRadius: 16,
     shadowColor: '#000',
