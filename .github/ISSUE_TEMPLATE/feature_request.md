@@ -1,9 +1,10 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: "[Feat]"
-labels: "\U0001F6A6 awaiting triage, power-up"
+title: "(feat)"
+labels: "\U0001F6A6 awaiting triage, enhancement"
 assignees: Guysnacho
+
 ---
 
 **Is your feature request related to a problem? Please describe.**
