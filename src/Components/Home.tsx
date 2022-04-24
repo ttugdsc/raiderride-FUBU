@@ -19,7 +19,7 @@ import size from '../Utils/Size';
 
 /* ------------------------------- Map Imports ------------------------------ */
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import mapStyle from '../Utils/MapStyle';
+import {mapStyle} from '../Utils/MapStyle';
 
 /* -------------------------- Font Awesome Imports -------------------------- */
 import {
@@ -40,7 +40,7 @@ const homeStyle = StyleSheet.create({
     left: 0,
     height:
       Platform.OS === 'android'
-        ? height - size(640) + size(40)
+        ? height - size(640) - size(20)
         : height - size(640) + size(20),
     width: '100%',
     borderRadius: 16,
@@ -119,7 +119,12 @@ const Home = () => {
           }
         }}
         paddingAdjustmentBehavior={'automatic'}
-        mapPadding={{top: size(10), bottom: size(25), left: 0, right: 0}}
+        mapPadding={{
+          top: size(10),
+          bottom: Platform.OS === 'android' ? size(120) : size(25),
+          left: 0,
+          right: 0,
+        }}
       />
       <RaiderRideHeader />
       <View style={homeStyle.overlayBottom}>
@@ -152,7 +157,7 @@ const Home = () => {
             Agree to follow all TTU and{'\n'}RaiderRide rules and regulations.
           </Text>
         </View>
-        <Btn onPress={() => {}} text={'Request Ride'} style="outline" />
+        <Btn onPress={() => {}} text={'Request Ride'} style="full" />
       </View>
     </SafeAreaView>
   );

@@ -1,4 +1,4 @@
-const mapStyle = [
+export const mapStyle = [
   {
     elementType: 'geometry',
     stylers: [
@@ -25,14 +25,6 @@ const mapStyle = [
   },
   {
     elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        color: '#f5f5f5',
-      },
-    ],
-  },
-  {
-    elementType: 'landscape.buildings',
     stylers: [
       {
         color: '#f5f5f5',
@@ -166,5 +158,3 @@ const mapStyle = [
     ],
   },
 ];
-
-export default mapStyle;

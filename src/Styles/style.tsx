@@ -10,19 +10,23 @@ const style = StyleSheet.create({
   headerText: {
     fontWeight: 'bold',
     fontSize: size(48),
+    color: 'black',
   },
   subHeaderText: {
     fontWeight: 'bold',
     fontSize: size(32),
     marginBottom: size(20),
+    color: 'black',
   },
   text: {
     fontSize: size(32),
+    color: 'black',
   },
   label: {
     marginTop: size(20),
     marginBottom: size(15),
     fontSize: size(32),
+    color: 'black',
   },
 });
 
