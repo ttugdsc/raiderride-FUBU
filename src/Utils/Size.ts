@@ -7,8 +7,8 @@
 import {create} from 'react-native-pixel-perfect';
 
 const designDimensions = {
-  width: 780,
-  height: 1688,
+  width: 390,
+  height: 844,
 };
 
 /**

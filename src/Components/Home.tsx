@@ -36,12 +36,12 @@ const homeStyle = StyleSheet.create({
   overlayBottom: {
     backgroundColor: 'white',
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? size(-20) : 0,
+    bottom: Platform.OS === 'android' ? size(-10) : 0,
     left: 0,
     height:
       Platform.OS === 'android'
-        ? height - size(640) - size(20)
-        : height - size(640) + size(20),
+        ? height - size(320) - size(10)
+        : height - size(320) + size(10),
     width: '100%',
     borderRadius: 16,
     shadowColor: '#000',
@@ -52,15 +52,15 @@ const homeStyle = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 20,
     elevation: 5,
-    padding: size(60),
+    padding: size(30),
   },
   rulesContainer: {
-    marginVertical: size(15),
+    marginVertical: size(8),
     flexDirection: 'row',
     alignItems: 'center',
   },
   icon: {
-    marginHorizontal: size(15),
+    marginHorizontal: size(8),
   },
 });
 
@@ -92,7 +92,7 @@ const Home = () => {
         style={[
           StyleSheet.absoluteFillObject,
           {
-            height: size(640),
+            height: size(320),
           },
         ]}
         userInterfaceStyle={'light'}
@@ -120,8 +120,8 @@ const Home = () => {
         }}
         paddingAdjustmentBehavior={'automatic'}
         mapPadding={{
-          top: size(10),
-          bottom: Platform.OS === 'android' ? size(120) : size(25),
+          top: size(5),
+          bottom: Platform.OS === 'android' ? size(60) : size(12),
           left: 0,
           right: 0,
         }}

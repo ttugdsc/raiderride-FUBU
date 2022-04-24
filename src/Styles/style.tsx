@@ -9,23 +9,23 @@ const style = StyleSheet.create({
   },
   headerText: {
     fontWeight: 'bold',
-    fontSize: size(48),
+    fontSize: size(24),
     color: 'black',
   },
   subHeaderText: {
     fontWeight: 'bold',
-    fontSize: size(32),
-    marginBottom: size(20),
+    fontSize: size(16),
+    marginBottom: size(10),
     color: 'black',
   },
   text: {
-    fontSize: size(32),
+    fontSize: size(16),
     color: 'black',
   },
   label: {
-    marginTop: size(20),
-    marginBottom: size(15),
-    fontSize: size(32),
+    marginTop: size(10),
+    marginBottom: size(8),
+    fontSize: size(16),
     color: 'black',
   },
 });

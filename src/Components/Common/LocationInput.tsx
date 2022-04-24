@@ -21,19 +21,19 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
  */
 const styles = StyleSheet.create({
   container: {
-    height: size(86),
+    height: size(43),
     backgroundColor: 'white',
-    borderRadius: size(16),
+    borderRadius: size(8),
     borderColor: '#979797',
-    borderWidth: size(2),
+    borderWidth: size(1),
     alignItems: 'center',
     flexDirection: 'row',
   },
   icon: {
-    marginHorizontal: size(15),
+    marginHorizontal: size(8),
   },
   text: {
-    fontSize: size(32),
+    fontSize: size(16),
     color: 'black',
   },
 });

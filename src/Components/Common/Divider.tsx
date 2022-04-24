@@ -9,9 +9,9 @@ import size from '../../Utils/Size';
 
 const dividerStyle = StyleSheet.create({
   divider: {
-    height: size(4),
+    height: size(2),
     backgroundColor: '#6A6A6A41',
-    marginVertical: size(45),
+    marginVertical: size(20),
   },
 });
 
