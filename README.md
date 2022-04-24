@@ -36,6 +36,10 @@ or
 
 ``` yarn run android```
 
+Then, to use the maps functionality, you need to set up an API key, which you can do by following this guide:
+
+[Set Up Google Maps Documentation](docs/SetUpGoogleMaps.md)
+
 ## Learn More
 
 To learn more about React and React Native, take a look at the following resources:
