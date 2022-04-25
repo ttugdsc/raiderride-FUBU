@@ -3,7 +3,7 @@
  */
 
 /* ------------------------------ React Imports ----------------------------- */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   Platform,
@@ -38,6 +38,10 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 const {height} = Dimensions.get('screen');
 
+// This is needed for android.
+MapboxGL.setAccessToken('null');
+MapboxGL.setConnected(false);
+
 const homeStyle = StyleSheet.create({
   overlayBottom: {
     backgroundColor: 'white',
@@ -46,7 +50,7 @@ const homeStyle = StyleSheet.create({
     left: 0,
     height:
       Platform.OS === 'android'
-        ? height - size(320) - size(10)
+        ? height - size(220) - size(100)
         : height - size(320) + size(10),
     width: '100%',
     borderRadius: 16,
@@ -75,6 +79,16 @@ const homeStyle = StyleSheet.create({
  * @component
  */
 const Home = () => {
+  const [update, setUpdate] = useState(true);
+
+  useEffect(() => {
+    MapboxGL.requestAndroidLocationPermissions();
+    MapboxGL.locationManager.start();
+    return () => {
+      MapboxGL.locationManager.stop();
+    };
+  }, []);
+
   return (
     <SafeAreaView style={style.container}>
       <StatusBar barStyle={'dark-content'} />
@@ -82,23 +96,32 @@ const Home = () => {
         style={[
           StyleSheet.absoluteFillObject,
           {
-            height: size(320),
+            height: Platform.OS === 'android' ? size(260) : size(320),
           },
         ]}
         contentInset={[10, 10, 10, 10]}
-        logoPosition={{bottom: 5, left: 3}}
+        logoPosition={{bottom: Platform.OS === 'android' ? 15 : 5, left: 3}}
+        attributionPosition={{
+          bottom: Platform.OS === 'android' ? 15 : 5,
+          right: 0,
+        }}
         tintColor={'red'}
         styleJSON={
           'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
         }>
-        <MapboxGL.UserLocation />
+        <MapboxGL.UserLocation
+          onUpdate={() => {
+            setUpdate(true);
+          }}
+          androidRenderMode={'normal'}
+        />
         <MapboxGL.Camera
           defaultSettings={{
             centerCoordinate: [-111.8678, 40.2866],
             zoomLevel: 10,
           }}
           followUserMode="normal"
-          followUserLocation={true}
+          followUserLocation={update}
         />
       </MapboxGL.MapView>
       <RaiderRideHeader />

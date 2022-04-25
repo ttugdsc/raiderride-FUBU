@@ -18,6 +18,7 @@ If you want to contribute, follow [our guidelines](https://github.com/ttugdsc/ra
   - etc.
 
 Once design is finished we pivot to development
+
 - Scaffold React Native project
 - Organize order of work logically
 - Frequent meetings
@@ -26,19 +27,19 @@ Once design is finished we pivot to development
 
 First, install the dependencies
 
-``` yarn install ```
+`yarn install`
+
+If you are building for IOS, run:
+
+`cd ios && pod install && cd ..`
 
 Then build the app for the respective platform:
 
-``` yarn run ios ```
+`yarn run ios`
 
 or
 
-``` yarn run android```
-
-Then, to use the maps functionality, you need to set up an API key, which you can do by following this guide:
-
-[Set Up Google Maps Documentation](docs/SetUpGoogleMaps.md)
+` yarn run android`
 
 ## Learn More
 
