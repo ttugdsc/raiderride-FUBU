@@ -168,6 +168,9 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = RaiderRideTests;
+			packageProductDependencies = (
+				F3E96B4F342DB120A0B285EA /* Mapbox */,
+			);
 			productName = RaiderRideTests;
 			productReference = 00E356EE1AD99517003FC87E /* RaiderRideTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -190,6 +193,9 @@
 			dependencies = (
 			);
 			name = RaiderRide;
+			packageProductDependencies = (
+				2CAFB4460AD86C0A8E333BC3 /* Mapbox */,
+			);
 			productName = RaiderRide;
 			productReference = 13B07F961A680F5B00A75B9A /* RaiderRide.app */;
 			productType = "com.apple.product-type.application";
@@ -220,6 +226,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				31ED40DFDF30916C11F361F7 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -484,6 +493,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4WKNFDQG2;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = RaiderRide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -510,6 +520,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4WKNFDQG2;
 				INFOPLIST_FILE = RaiderRide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -693,6 +704,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		31ED40DFDF30916C11F361F7 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
+			requirement = {
+				kind = exactVersion;
+				version = 5.12.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2CAFB4460AD86C0A8E333BC3 /* Mapbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31ED40DFDF30916C11F361F7 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = Mapbox;
+		};
+		F3E96B4F342DB120A0B285EA /* Mapbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31ED40DFDF30916C11F361F7 /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = Mapbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

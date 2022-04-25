@@ -3,8 +3,15 @@
  */
 
 /* ------------------------------ React Imports ----------------------------- */
-import React, {useRef, useState} from 'react';
-import {Dimensions, Platform, StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {
+  Dimensions,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 /* ------------------------------ Style Import ------------------------------ */
@@ -18,8 +25,7 @@ import Divider from './Common/Divider';
 import size from '../Utils/Size';
 
 /* ------------------------------- Map Imports ------------------------------ */
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {mapStyle} from '../Utils/MapStyle';
+import MapboxGL from '@rnmapbox/maps';
 
 /* -------------------------- Font Awesome Imports -------------------------- */
 import {
@@ -69,63 +75,32 @@ const homeStyle = StyleSheet.create({
  * @component
  */
 const Home = () => {
-  const [region, setRegion] = useState({
-    latitude: 0,
-    latitudeDelta: 0,
-    longitude: -101.86742808669806,
-    longitudeDelta: 0.004632845520973206,
-  });
-
-  /**
-   * This is used to set the map region to the user location on first load.
-   */
-  const [isFirstFetch, setFirstFetch] = useState(true);
-
-  /**
-   * The reference to the map object.
-   */
-  const mapRef: React.LegacyRef<MapView> | undefined = useRef(null);
-
   return (
     <SafeAreaView style={style.container}>
-      <MapView
+      <StatusBar barStyle={'dark-content'} />
+      <MapboxGL.MapView
         style={[
           StyleSheet.absoluteFillObject,
           {
             height: size(320),
           },
         ]}
-        userInterfaceStyle={'light'}
-        provider={PROVIDER_GOOGLE}
-        customMapStyle={mapStyle}
-        initialRegion={region}
-        onRegionChangeComplete={(r, d) => {
-          if (d?.isGesture) {
-            setRegion(r);
-          }
-        }}
-        ref={mapRef}
-        showsUserLocation={true}
-        showsBuildings={false}
-        onUserLocationChange={location => {
-          if (isFirstFetch && mapRef !== null) {
-            mapRef.current.animateToRegion({
-              latitude: location.nativeEvent.coordinate.latitude,
-              longitude: location.nativeEvent.coordinate.longitude,
-              latitudeDelta: region.latitudeDelta,
-              longitudeDelta: region.longitudeDelta,
-            });
-            setFirstFetch(false);
-          }
-        }}
-        paddingAdjustmentBehavior={'automatic'}
-        mapPadding={{
-          top: size(5),
-          bottom: Platform.OS === 'android' ? size(60) : size(12),
-          left: 0,
-          right: 0,
-        }}
-      />
+        contentInset={[10, 10, 10, 10]}
+        logoPosition={{bottom: 5, left: 3}}
+        tintColor={'red'}
+        styleJSON={
+          'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
+        }>
+        <MapboxGL.UserLocation />
+        <MapboxGL.Camera
+          defaultSettings={{
+            centerCoordinate: [-111.8678, 40.2866],
+            zoomLevel: 10,
+          }}
+          followUserMode="normal"
+          followUserLocation={true}
+        />
+      </MapboxGL.MapView>
       <RaiderRideHeader />
       <View style={homeStyle.overlayBottom}>
         <Text style={style.headerText}>
