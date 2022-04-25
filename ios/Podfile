@@ -6,6 +6,7 @@ install! 'cocoapods', :deterministic_uuids => false
 
 target 'RaiderRide' do
   config = use_native_modules!
+  pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -30,7 +31,12 @@ target 'RaiderRide' do
   # you should disable the next line.
   use_flipper!()
 
+  pre_install do |installer|
+    $RNMapboxMaps.pre_install(installer)
+  end
+
   post_install do |installer|
+    $RNMapboxMaps.post_install(installer)
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end

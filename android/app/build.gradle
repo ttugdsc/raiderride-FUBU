@@ -1,4 +1,13 @@
+project.ext.envConfigFiles = [
+    release: ".env",
+    dev: ".env",
+]
+
+
 apply plugin: "com.android.application"
+
+apply from: project(":react-native-config").projectDir.getPath() + "/dotenv.gradle"
+
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -82,6 +91,7 @@ project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
 ]
 
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -141,6 +151,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+        resValue "string", "build_config_package", "com.raiderride"
 
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.

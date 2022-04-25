@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "ReactNativeConfig.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
@@ -24,6 +25,7 @@
 }
 @end
 #endif
+
 
 @implementation AppDelegate
 
