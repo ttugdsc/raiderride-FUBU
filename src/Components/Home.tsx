@@ -53,8 +53,8 @@ const {height} = Dimensions.get('screen');
 
 // This is needed for android.
 if (Platform.OS === 'android') {
-  MapboxGL.setAccessToken('null');
-  MapboxGL.setConnected(false);
+  MapboxGL.setAccessToken(null);
+  MapboxGL.setConnected(true);
 }
 
 const showEvent = Platform.select({
@@ -78,7 +78,7 @@ const homeStyle = StyleSheet.create({
     left: 0,
     height:
       Platform.OS === 'android'
-        ? height - size(220) - size(100)
+        ? height - size(200) - size(100)
         : height - size(270) + size(10),
     width: '100%',
     borderRadius: 16,
@@ -298,7 +298,7 @@ const Home = () => {
         style={[
           StyleSheet.absoluteFillObject,
           {
-            height: Platform.OS === 'android' ? size(260) : size(270),
+            height: Platform.OS === 'android' ? size(240) : size(270),
           },
         ]}
         contentInset={[10, 10, 10, 10]}
@@ -311,7 +311,7 @@ const Home = () => {
            The solution is to set a new tile set, but that is cumbersome, and should be done closer
            to release */
         styleURL={
-          'https://gist.githubusercontent.com/jaxcksn/8caca4f5395d0b5876cd28bb3fac8b99/raw/53550d57973df168a0cf8ff5b83cd0fc050844d3/style.json'
+          'https://tiles.basemaps.cartocdn.com/gl/positron-gl-style/style.json'
         }
         tintColor={raiderRideTheme['color-primary-500']}>
         <MapboxGL.UserLocation
@@ -349,7 +349,7 @@ const Home = () => {
         <MapboxGL.Camera
           defaultSettings={{
             centerCoordinate: [-111.8678, 40.2866],
-            zoomLevel: 0,
+            zoomLevel: 10,
           }}
           followUserMode="normal"
           followUserLocation={update}
@@ -357,7 +357,11 @@ const Home = () => {
       </MapboxGL.MapView>
       <RaiderRideHeader />
       <Layout style={[homeStyle.overlayBottom]}>
-        <Layout style={{justifyContent: 'center', marginVertical: 10}}>
+        <Layout
+          style={{
+            justifyContent: 'center',
+            marginVertical: Platform.OS === 'android' ? 3 : 10,
+          }}>
           <Text category="h4">Hi {'{name}'}, where are we heading today?</Text>
         </Layout>
         <Layout style={homeStyle.innerContent}>

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import size from '../Utils/Size';
 
 const style = StyleSheet.create({
@@ -29,7 +29,7 @@ const style = StyleSheet.create({
   dividerMargins: {
     marginTop: size(25),
   },
-  bottomButtonContainer: {justifyContent: 'center', paddingBottom: 50},
+  bottomButtonContainer: {justifyContent: 'center', paddingBottom: Platform.OS !== 'android' ? 50 : 10},
 });
 
 export default style;
