@@ -6,23 +6,29 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "pod": "cd ios && pod install && cd ..",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@eva-design/eva": "^2.1.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-native-fontawesome": "^0.2.7",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "@rnmapbox/maps": "rnmapbox/maps#main",
+    "@ui-kitten/components": "^5.1.2",
+    "axios": "^0.27.0",
     "react": "17.0.2",
     "react-native": "0.68.1",
     "react-native-config": "^1.4.5",
+    "react-native-geolocation-service": "^5.3.0-beta.4",
     "react-native-pixel-perfect": "^1.0.2",
     "react-native-safe-area-context": "^4.2.4",
     "react-native-screens": "^3.13.1",
-    "react-native-svg": "^12.3.0"
+    "react-native-svg": "^12.3.0",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
