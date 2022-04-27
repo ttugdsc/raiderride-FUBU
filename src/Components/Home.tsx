@@ -3,7 +3,7 @@
  */
 
 /* ------------------------------ React Imports ----------------------------- */
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   Alert,
   Dimensions,
@@ -46,6 +46,8 @@ import {
   faLocationPin,
 } from '@fortawesome/free-solid-svg-icons';
 import {raiderRideTheme} from '../Styles/ui-kitten-theme';
+import AppContext from '../Utils/AppContext';
+import {GlobalContext, UserData} from '../App';
 
 /* ---------------------------- Global Constants ---------------------------- */
 const RADAR_API = 'https://api.radar.io/v1';
@@ -109,6 +111,10 @@ const homeStyle = StyleSheet.create({
  */
 const Home = () => {
   const [update, setUpdate] = useState(true);
+  /**
+   * This is the global state from the context provider.
+   */
+  const globalState: GlobalContext = useContext<GlobalContext>(AppContext);
 
   /* ------------------------------ Autocomplete States ------------------------------ */
   const [pickupDisplay, setPickupDisplay] = useState({
@@ -190,7 +196,9 @@ const Home = () => {
 
   useEffect(() => {
     if (
-      (Config.RADAR_API_KEY === '' || Config.RADAR_API_KEY === undefined) &&
+      (Config.RADAR_API_KEY === '' ||
+        Config.RADAR_API_KEY === 'REPLACE_ME' ||
+        Config.RADAR_API_KEY === undefined) &&
       Config.MODE !== 'PROD'
     ) {
       Alert.alert(
@@ -362,7 +370,9 @@ const Home = () => {
             justifyContent: 'center',
             marginVertical: Platform.OS === 'android' ? 3 : 10,
           }}>
-          <Text category="h4">Hi {'{name}'}, where are we heading today?</Text>
+          <Text category="h4">
+            Hi {globalState.userData.name}, where are we heading today?
+          </Text>
         </Layout>
         <Layout style={homeStyle.innerContent}>
           <Text style={style.label} category="label">
