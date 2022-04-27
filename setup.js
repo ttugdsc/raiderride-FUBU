@@ -2,7 +2,7 @@
 /**
  * This is a custom install script to create an appropriate .env file
  * and any other configurations for creating a RaiderRide development
- * enviorment.
+ * environment
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -71,6 +71,7 @@ var chalk = require('chalk');
 var listr2_1 = require("listr2");
 var execa_1 = __importDefault(require("execa"));
 var fs = __importStar(require("fs"));
+var rl = __importStar(require("readline"));
 console.log(chalk.blueBright('\nChecking raiderRide dev environment:'));
 function sleep(ms) {
     return new Promise(function (resolve) {
@@ -83,14 +84,14 @@ var context = {
 };
 var checks = new listr2_1.Listr([
     {
-        title: '🧶 Checking for Yarn',
+        title: '🧶  Checking for Yarn',
         task: function (ctx, task) { return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, sleep(1000)];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, (0, execa_1["default"])('yarn --version')["catch"](function () {
+                        return [2 /*return*/, (0, execa_1["default"])('yarn', ['--version'], { shell: true, preferLocal: true })["catch"](function () {
                                 ctx.hasYarn = false;
                                 throw new Error('Yarn should be installed for RaiderRide development, please install yarn by running:\n' +
                                     chalk.bold('npm install --global yarn'));
@@ -107,7 +108,7 @@ var checks = new listr2_1.Listr([
         }
     },
     {
-        title: '🔎 Checking for DotEnv file',
+        title: '🔎  Checking for DotEnv file',
         enabled: function (ctx) {
             return ctx.hasYarn === true;
         },
@@ -121,7 +122,6 @@ var checks = new listr2_1.Listr([
                                 .access('./.env', fs.constants.F_OK)["catch"](function () {
                                 task.output = 'Could not Find DotEnv File.';
                                 ctx.hasEnv = false;
-                                throw new Error('Checking for DotEnv file');
                             })
                                 .then(function () {
                                 task.output = 'Found DotEnv file';
@@ -137,28 +137,75 @@ var checks = new listr2_1.Listr([
     {
         title: '✍  Creating DotEnv File',
         enabled: function (ctx) {
-            return ctx.hasEnv === false;
+            return ctx.hasEnv === false && ctx.hasYarn === true;
         },
-        task: function (ctx, task) {
-            fs.promises
-                .writeFile('./.env', 'MODE=DEV\nRADAR_API_KEY=REPLACE_ME')["catch"](function () {
-                throw new Error('Could not create DotEnv file. You should create it manually.');
-            })
-                .then(function () {
-                ctx.hasEnv = true;
-                task.output = 'Successfully Created DotEnv File.';
+        task: function (ctx, task) { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, sleep(1000)];
+                    case 1:
+                        _a.sent();
+                        fs.promises
+                            .writeFile('./.env', 'MODE=DEV\nRADAR_API_KEY=REPLACE_ME')["catch"](function () {
+                            throw new Error('Could not create DotEnv file. You should create it manually.');
+                        })
+                            .then(function () {
+                            ctx.hasEnv = true;
+                            task.output = 'Successfully Created DotEnv File.';
+                        });
+                        return [2 /*return*/];
+                }
             });
-        },
+        }); },
         options: {
             persistentOutput: true
         }
     },
 ], {
     ctx: context,
-    exitOnError: false,
+    exitOnError: true,
     concurrent: false,
     rendererOptions: { collapse: false }
 });
-checks.run().then(function () {
-    console.log('\n✨ ' + chalk.dim('Finished validating development environment\n'));
+checks
+    .run()["catch"](function () {
+    var cons = rl.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+    cons.question(chalk.blue(chalk.bold('\n?')) +
+        ' Would you like to install Yarn?' +
+        chalk.dim(' (yes/no)') +
+        ' ', function (ans) { return __awaiter(void 0, void 0, void 0, function () {
+        var task;
+        return __generator(this, function (_a) {
+            if (ans.toLowerCase() === 'yes' || ans.toLowerCase() === 'y') {
+                task = (0, execa_1["default"])('npm install --global yarn', {
+                    shell: true
+                });
+                cons.close();
+                console.log(chalk.dim('$ npm install --global yarn'));
+                task.stdout.pipe(process.stdout);
+                task.then(function () {
+                    console.log('Yarn was successfully installed. Please run ' +
+                        chalk.blue('yarn install') +
+                        ' to continue setup.');
+                    console.log('\n🎉  ' +
+                        chalk.dim('Finished validating development environment'));
+                });
+            }
+            else {
+                console.log('Yarn installation declined. It his highly recommended you use Yarn when developing for raiderRide.');
+                cons.close();
+            }
+            return [2 /*return*/];
+        });
+    }); });
+})
+    .then(function (ctx) {
+    if (ctx) {
+        if (ctx.hasYarn && ctx.hasEnv) {
+            console.log('\n🎉  ' + chalk.dim('Finished validating development environment'));
+        }
+    }
 });
