@@ -32,4 +32,4 @@ the device.
 
 #### Defined in
 
-[Utils/Size.ts:22](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/Utils/Size.ts#L22)
+[Utils/Size.ts:22](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Utils/Size.ts#L22)

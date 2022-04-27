@@ -1,8 +1,4 @@
 /**
- * @fileoverview These are all the types used by the Radar API
- */
-
-/**
  * Represents a autocomplete result from the Radar API
  * @type
  */
@@ -13,20 +9,20 @@ export type RadarAutocomplete = {
 
 /**
  * The response code from Radar, which should normally be 200
- * @interface
+ * @type
  */
-export interface Meta {
+export type Meta = {
   /**
    * The HTTP status code returned by the radar API
    */
   code: number;
-}
+};
 
 /**
  * An address returned by the radar API
- * @interface
+ * @type
  */
-export interface RadarAddress {
+export type RadarAddress = {
   /**
    * The latitude of the address
    */
@@ -110,9 +106,9 @@ export interface RadarAddress {
    * @see https://radar.com/documentation/api#autocomplete
    */
   layer: string;
-}
+};
 
-export interface RadarGeometry {
+export type RadarGeometry = {
   type: string;
   coordinates: number[];
-}
+};

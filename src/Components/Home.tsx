@@ -50,7 +50,13 @@ import AppContext from '../Utils/AppContext';
 import {GlobalContext, UserData} from '../App';
 
 /* ---------------------------- Global Constants ---------------------------- */
+/**
+ * The base URL for the radar API
+ */
 const RADAR_API = 'https://api.radar.io/v1';
+/**
+ * This is the height of the screen in DP
+ */
 const {height} = Dimensions.get('screen');
 
 // This is needed for android.

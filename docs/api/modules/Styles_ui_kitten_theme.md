@@ -66,4 +66,4 @@
 
 #### Defined in
 
-[Styles/ui-kitten-theme.ts:1](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/Styles/ui-kitten-theme.ts#L1)
+[Styles/ui-kitten-theme.ts:1](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Styles/ui-kitten-theme.ts#L1)

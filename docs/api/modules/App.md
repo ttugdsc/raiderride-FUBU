@@ -32,7 +32,7 @@ This strictly defines the type of data stored in our global state.
 
 #### Defined in
 
-[App.tsx:41](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/App.tsx#L41)
+[App.tsx:41](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L41)
 
 ___
 
@@ -51,7 +51,7 @@ data to us.
 
 #### Defined in
 
-[App.tsx:32](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/App.tsx#L32)
+[App.tsx:32](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L32)
 
 ## Functions
 
@@ -71,4 +71,4 @@ could be used to store authentication state.
 
 #### Defined in
 
-[App.tsx:74](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/App.tsx#L74)
+[App.tsx:74](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L74)

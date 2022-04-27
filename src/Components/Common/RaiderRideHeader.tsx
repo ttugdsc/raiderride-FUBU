@@ -16,6 +16,11 @@ const hStyle = StyleSheet.create({
   },
 });
 
+/**
+ * This is a component for the words "raiderRide" which appear at the top of every
+ * component.
+ * @component
+ */
 const RaiderRideHeader = () => {
   return (
     <View style={hStyle.header}>

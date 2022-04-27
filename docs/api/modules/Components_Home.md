@@ -24,4 +24,4 @@ Component for the driver home page.
 
 #### Defined in
 
-[Components/Home.tsx:112](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/Components/Home.tsx#L112)
+[Components/Home.tsx:118](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Components/Home.tsx#L118)

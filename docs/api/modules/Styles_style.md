@@ -45,4 +45,4 @@
 
 #### Defined in
 
-[Styles/style.ts:4](https://github.com/jaxcksn/raiderride-FUBU/blob/3080884/src/Styles/style.ts#L4)
+[Styles/style.ts:4](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Styles/style.ts#L4)
