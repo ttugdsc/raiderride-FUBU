@@ -357,7 +357,7 @@ const Home = () => {
         <MapboxGL.Camera
           defaultSettings={{
             centerCoordinate: [-111.8678, 40.2866],
-            zoomLevel: 10,
+            zoomLevel: 0,
           }}
           followUserMode="normal"
           followUserLocation={update}
