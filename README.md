@@ -4,7 +4,7 @@ An effort to replace Texas Tech University's current ridesharing solution
 
 Here you can watch and even participate in the development on a student-built ridesharing app.
 
-If you want to contribute, follow [our guidelines](https://github.com/ttugdsc/raiderride-FUBU/blob/main/CONTRIBUTION.md).
+If you want to contribute, follow [our guidelines](./.github/CONTRIBUTING.md).
 
 ## Order of business
 
