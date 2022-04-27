@@ -49,7 +49,7 @@ To learn more about React and React Native, take a look at the following resourc
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://linkedin.com/in/sadetunji"><img src="https://avatars.githubusercontent.com/u/16262157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Samuel Adetunji</b></sub></a><br /><a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=Guysnacho" title="Code">💻</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=Guysnacho" title="Documentation">📖</a> <a href="#maintenance-Guysnacho" title="Maintenance">🚧</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/pulls?q=is%3Apr+reviewed-by%3AGuysnacho" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/Guysnacho"><img src="https://avatars.githubusercontent.com/u/16262157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Samuel Adetunji</b></sub></a><br /><a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=Guysnacho" title="Code">💻</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=Guysnacho" title="Documentation">📖</a> <a href="#maintenance-Guysnacho" title="Maintenance">🚧</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/pulls?q=is%3Apr+reviewed-by%3AGuysnacho" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/jaxcksn"><img src="https://avatars.githubusercontent.com/u/65034067?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jackson Casey</b></sub></a><br /><a href="#design-jaxcksn" title="Design">🎨</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=jaxcksn" title="Documentation">📖</a> <a href="https://github.com/ttugdsc/raiderride-FUBU/commits?author=jaxcksn" title="Code">💻</a></td>
   </tr>
 </table>
@@ -58,7 +58,5 @@ To learn more about React and React Native, take a look at the following resourc
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
----
 
 ## Happy coding 🎉🙌
