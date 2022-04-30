@@ -11,17 +11,15 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version: 14
+        node-version: 16
       run: npm i -g yarn
       run: yarn install
-      - name: Retrieve secret
-        env:
-          config: ${{ secrets.CONFIG }}
-        run: |
-          touch .env
-          echo "$config" >> .env
-      - name: lint 📝
-        run: yarn run lint
+      env:
+        config: ${{ secrets.CONFIG }}
+      run: |
+        touch .env
+        echo "$config" >> .env
+      run: yarn run lint
   
   build-android:
     needs: install-and-test
@@ -30,7 +28,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version: 14
+        node-version: 16
       run: npm i -g yarn
       run: yarn install
       - name: Retrieve secret
