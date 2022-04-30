@@ -19,7 +19,6 @@ jobs:
       - run: |
           echo '🔧 Installing dependencies 🏗'
           yarn install
-      - run: |
           touch .env
           echo '$config' >> .env
       - run: |
