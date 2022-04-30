@@ -5,36 +5,43 @@ on:
       - main
       - add-cicd
 jobs:
-  prep-environment:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 14
-      - name: Install yarn
-        run: |
-          npm i -g yarn
-  install-and-test:
-    runs-on: ubuntu-latest
-    needs: prep-environment
-    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+      run: npm i -g yarn
+      run: yarn install
       - name: Retrieve secret
-        shell: bash
         env:
           config: ${{ secrets.CONFIG }}
         run: |
           touch .env
           echo "$config" >> .env
-      - name: Install node dependencies
-        run: |
-          yarn install
+      - name: lint 📝
+        run: yarn run lint
+  
   build-android:
     needs: install-and-test
     runs-on: ubuntu-latest
     steps:
-      - name: Build Android Release
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 14
+      run: npm i -g yarn
+      run: yarn install
+      - name: Retrieve secret
+        env:
+          config: ${{ secrets.CONFIG }}
         run: |
-          cd android && ./gradlew assembleRelease
+          touch .env
+          echo "$config" >> .env
+      - name: Build Android
+        run: cd android && ./gradlew assembleRelease
