@@ -1,0 +1,46 @@
+on: #8
+  push:
+    branches: [ main ]
+jobs:
+  QualityChecks: # Code quality checks
+    runs-on: ubuntu-latest
+    env:
+      config: ${{ secrets.CONFIG }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: |
+          echo '🧪 Installing yarn 🧶'
+          npm i -g yarn
+      - run: |
+          echo '🔧 Installing dependencies 🏗'
+          yarn install
+      - run: |
+          touch .env
+          echo '$config' >> .env
+      - run: |
+          echo '🧹 Linting ⚠'
+          yarn run lint
+  
+  Build: # BUild checks #
+    runs-on: ubuntu-latest
+    env:
+      config: ${{ secrets.CONFIG }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: |
+          echo '🧪 Installing yarn 🧶'
+          npm i -g yarn
+      - run: |
+          echo '🔧 Installing dependencies 🏗'
+          touch .env
+          echo "$config" >> .env
+          yarn install
+      - run: |
+          echo '🤖 Building android release 💽'
+          cd android && ./gradlew assembleRelease

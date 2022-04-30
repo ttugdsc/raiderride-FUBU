@@ -29,7 +29,10 @@ const style = StyleSheet.create({
   dividerMargins: {
     marginTop: size(25),
   },
-  bottomButtonContainer: {justifyContent: 'center', paddingBottom: Platform.OS !== 'android' ? 50 : 10},
+  bottomButtonContainer: {
+    justifyContent: 'center',
+    paddingBottom: Platform.OS !== 'android' ? 50 : 10,
+  },
 });
 
 export default style;

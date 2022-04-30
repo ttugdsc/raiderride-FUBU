@@ -10,7 +10,7 @@
     "start": "react-native start",
     "pod": "cd ios && pod install && cd ..",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
     "docs": "typedoc --plugin typedoc-plugin-markdown --plugin typedoc-plugin-rename-defaults --readme ./docs/assets/old_readme.md  --entryPointStrategy expand --out ./docs/api/ ./src/"
   },
   "dependencies": {

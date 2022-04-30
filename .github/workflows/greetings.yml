@@ -1,0 +1,10 @@
+name: Welcome to the team! 🍞😄🖥️
+
+on: [pull_request_target, issues] 
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: First interaction
+        uses: actions/first-interaction@v1.1.0
