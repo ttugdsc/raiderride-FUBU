@@ -4,12 +4,6 @@ on: [pull_request_target, issues]
 
 jobs:
   greeting:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
     steps:
-    - uses: actions/first-interaction@v1
-      with:
-        issue-message: 'Thanks for putting in the issue, don't be afraid to jump in and develop!'
-        pr-message: 'Thank you for all the help! Someone will come through and review the code after runs finish'
+      uses: actions/first-interaction@v1.1.0
+      - name: First interaction
