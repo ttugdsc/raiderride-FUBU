@@ -28,7 +28,6 @@ jobs:
         yarn run lint
   
   build-android:
-    needs: install-and-test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -46,5 +45,6 @@ jobs:
       run: |
         touch .env
         echo "$config" >> .env
-      name: Build Android
-        run: cd android && ./gradlew assembleRelease
+      run: |
+        echo "🤖 Building android release 💽"
+        cd android && ./gradlew assembleRelease
