@@ -21,7 +21,7 @@ jobs:
         env:
           config: ${{ secrets.CONFIG }}
         run: |
-          ls
+          echo ls
           cd raiderRide-FUBU
           touch .env
           echo "$config" >> .env
