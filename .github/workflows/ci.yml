@@ -15,7 +15,7 @@ jobs:
       run: |
         echo "🧪 Installing yarn 🧶"
         npm i -g yarn
-      run: :
+      run: |
         echo "🔧 Installing dependencies 🏗"
         yarn install
       env:
