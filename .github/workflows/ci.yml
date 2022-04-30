@@ -23,7 +23,6 @@ jobs:
         env:
           config: ${{ secrets.CONFIG }}
         run: |
-          echo < ls
           touch .env
           echo "$config" >> .env
       - name: Install node dependencies
