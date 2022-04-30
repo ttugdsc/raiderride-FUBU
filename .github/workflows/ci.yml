@@ -8,43 +8,43 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
+      env:
+        config: ${{ secrets.CONFIG }}
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      run: |
+      - run: |
         echo "🧪 Installing yarn 🧶"
         npm i -g yarn
-      run: |
+      - run: |
         echo "🔧 Installing dependencies 🏗"
         yarn install
-      env:
-        config: ${{ secrets.CONFIG }}
-      run: |
+      - run: |
         touch .env
         echo "$config" >> .env
-      run: |
+      - run: |
         echo "🧹 Linting ⚠"
         yarn run lint
   
   build-android:
     runs-on: ubuntu-latest
     steps:
+      env:
+        config: ${{ secrets.CONFIG }}
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-      run: |
-        echo "🧪 Installing yarn 🧶"
-        npm i -g yarn
-      run: |
-        echo "🔧 Installing dependencies 🏗"
-        yarn install
-      env:
-        config: ${{ secrets.CONFIG }}
-      run: |
-        touch .env
-        echo "$config" >> .env
-      run: |
-        echo "🤖 Building android release 💽"
-        cd android && ./gradlew assembleRelease
+      - run: |
+          echo "🧪 Installing yarn 🧶"
+          npm i -g yarn
+      - run: |
+          echo "🔧 Installing dependencies 🏗"
+          yarn install
+      - run: |
+          touch .env
+          echo "$config" >> .env
+      - run: |
+          echo "🤖 Building android release 💽"
+          cd android && ./gradlew assembleRelease
