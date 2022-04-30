@@ -18,9 +18,9 @@ jobs:
     steps:
       - name: Retrieve secret
         env:
-          CONFIG: ${{secrets.CONFIG}}
+          config: ${{secrets.CONFIG}}
         run: |
-          "$CONFIG" > .env
+          "$env:config" > .env
       - name: Install node dependencies
         run: |
           yarn install
