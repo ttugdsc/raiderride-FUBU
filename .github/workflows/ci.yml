@@ -8,6 +8,7 @@ jobs:
   prep-environment:
     runs-on: ubuntu-latest
     steps:
+      - shell: bash
       - uses: actions/checkout@v2
       - name: Install yarn
         run: |
@@ -16,9 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: prep-environment
     steps:
+      - shell: bash
       - name: Retrieve secret
         env:
-          config: ${{secrets.CONFIG}}
+          config: ${{ secrets.CONFIG }}
         run: |
           touch .env
           "$config" > .env
