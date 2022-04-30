@@ -47,7 +47,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {raiderRideTheme} from '../Styles/ui-kitten-theme';
 import AppContext from '../Utils/AppContext';
-import {GlobalContext, UserData} from '../App';
+import {GlobalContext} from '../App'; //Originally {GlobalContext, UserData}
 
 /* ---------------------------- Global Constants ---------------------------- */
 /**
