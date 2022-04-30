@@ -22,7 +22,7 @@ jobs:
           config: ${{ secrets.CONFIG }}
         run: |
           touch .env
-          "$config" > .env
+          $config > .env
       - name: Install node dependencies
         run: |
           yarn install
