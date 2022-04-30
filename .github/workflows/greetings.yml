@@ -1,6 +1,6 @@
 name: Welcome to the team! 🍞😄🖥️
 
-on: [pull_request_target, issues]
+on: [pull_request_target, issues] 
 
 jobs:
   greeting:
