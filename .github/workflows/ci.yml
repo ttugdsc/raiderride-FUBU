@@ -21,6 +21,7 @@ jobs:
         env:
           config: ${{ secrets.CONFIG }}
         run: |
+          cd raiderRide-FUBU
           touch .env
           echo "$config" >> .env
       - name: Install node dependencies
