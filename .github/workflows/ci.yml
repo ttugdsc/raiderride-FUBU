@@ -8,7 +8,9 @@ jobs:
   prep-environment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.2
+      - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
       - name: Install yarn
         run: |
           npm i -g yarn
