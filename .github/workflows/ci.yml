@@ -12,14 +12,20 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-      run: npm i -g yarn
-      run: yarn install
+      run: |
+        echo "🧪 Installing yarn 🧶"
+        npm i -g yarn
+      run: :
+        echo "🔧 Installing dependencies 🏗"
+        yarn install
       env:
         config: ${{ secrets.CONFIG }}
       run: |
         touch .env
         echo "$config" >> .env
-      run: yarn run lint
+      run: |
+        echo "🧹 Linting ⚠"
+        yarn run lint
   
   build-android:
     needs: install-and-test
@@ -29,8 +35,12 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-      run: npm i -g yarn
-      run: yarn install
+      run: |
+        echo "🧪 Installing yarn 🧶"
+        npm i -g yarn
+      run: :
+        echo "🔧 Installing dependencies 🏗"
+        yarn install
       env:
         config: ${{ secrets.CONFIG }}
       run: |
