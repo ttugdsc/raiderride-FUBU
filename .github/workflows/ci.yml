@@ -5,6 +5,7 @@ on:
       - main
       - add-cicd
 jobs:
+  shell: bash
   prep-environment:
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +18,6 @@ jobs:
     needs: prep-environment
     steps:
       - name: Retrieve secret
-      - shell: bash
         env:
           config: ${{ secrets.CONFIG }}
         run: |
