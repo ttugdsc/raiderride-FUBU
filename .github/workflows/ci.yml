@@ -41,10 +41,9 @@ jobs:
           npm i -g yarn
       - run: |
           echo '🔧 Installing dependencies 🏗'
-          yarn install
-      - run: |
           touch .env
           echo "$config" >> .env
+          yarn install
       - run: |
           echo '🤖 Building android release 💽'
           cd android && ./gradlew assembleRelease
