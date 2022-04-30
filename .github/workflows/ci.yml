@@ -32,10 +32,10 @@ jobs:
     env:
       config: ${{ secrets.CONFIG }}
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
       - run: |
           echo '🧪 Installing yarn 🧶'
           npm i -g yarn
