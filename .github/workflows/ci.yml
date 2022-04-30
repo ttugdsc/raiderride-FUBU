@@ -15,16 +15,16 @@ jobs:
         with:
           node-version: '16'
       - run: |
-        echo "🧪 Installing yarn 🧶"
+        echo '🧪 Installing yarn 🧶'
         npm i -g yarn
       - run: |
-        echo "🔧 Installing dependencies 🏗"
+        echo '🔧 Installing dependencies 🏗'
         yarn install
       - run: |
         touch .env
-        echo "$config" >> .env
+        echo '$config' >> .env
       - run: |
-        echo "🧹 Linting ⚠"
+        echo '🧹 Linting ⚠'
         yarn run lint
   
   build-android:
@@ -37,14 +37,14 @@ jobs:
       with:
         node-version: '16'
       - run: |
-          echo "🧪 Installing yarn 🧶"
+          echo '🧪 Installing yarn 🧶'
           npm i -g yarn
       - run: |
-          echo "🔧 Installing dependencies 🏗"
+          echo '🔧 Installing dependencies 🏗'
           yarn install
       - run: |
           touch .env
           echo "$config" >> .env
       - run: |
-          echo "🤖 Building android release 💽"
+          echo '🤖 Building android release 💽'
           cd android && ./gradlew assembleRelease
