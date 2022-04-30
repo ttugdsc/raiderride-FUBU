@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '16'
       - run: |
-        echo '🧪 Installing yarn 🧶'
+        echo 'Installing yarn'
         npm i -g yarn
       - run: |
         echo '🔧 Installing dependencies 🏗'
