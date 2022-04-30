@@ -31,11 +31,10 @@ jobs:
         node-version: 16
       run: npm i -g yarn
       run: yarn install
-      - name: Retrieve secret
-        env:
-          config: ${{ secrets.CONFIG }}
-        run: |
-          touch .env
-          echo "$config" >> .env
-      - name: Build Android
+      env:
+        config: ${{ secrets.CONFIG }}
+      run: |
+        touch .env
+        echo "$config" >> .env
+      name: Build Android
         run: cd android && ./gradlew assembleRelease
