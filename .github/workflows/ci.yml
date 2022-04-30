@@ -15,17 +15,17 @@ jobs:
         with:
           node-version: '16'
       - run: |
-        echo 'Installing yarn'
-        npm i -g yarn
+          echo '🧪 Installing yarn 🧶'
+          npm i -g yarn
       - run: |
-        echo '🔧 Installing dependencies 🏗'
-        yarn install
+          echo '🔧 Installing dependencies 🏗'
+          yarn install
       - run: |
-        touch .env
-        echo '$config' >> .env
+          touch .env
+          echo '$config' >> .env
       - run: |
-        echo '🧹 Linting ⚠'
-        yarn run lint
+          echo '🧹 Linting ⚠'
+          yarn run lint
   
   build-android:
     runs-on: ubuntu-latest
