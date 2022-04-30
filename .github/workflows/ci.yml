@@ -1,5 +1,5 @@
 on: #8
-  push:
+  pull_request:
     branches: [ main ]
 jobs:
   QualityChecks: # Code quality checks
@@ -8,6 +8,8 @@ jobs:
       config: ${{ secrets.CONFIG }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -30,6 +32,8 @@ jobs:
       config: ${{ secrets.CONFIG }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
