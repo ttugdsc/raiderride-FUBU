@@ -1,4 +1,3 @@
-![gdsc-logo](../docs/assets/api.png)
 ![gdsc-logo](../docs/assets/gdsc-light.png#gh-dark-mode-only)
 
 # How can I participate?
