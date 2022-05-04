@@ -3,7 +3,7 @@ name: Bug report
 about: Create a report to help us improve
 title: "(bug)"
 labels: "\U0001F6A6 awaiting triage, bug"
-assignees: ''
+assignees: Guysnacho
 
 ---
 
