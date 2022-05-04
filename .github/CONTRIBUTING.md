@@ -1,5 +1,5 @@
-![gdsc-logo](./docs/assets/gdsc.png#gh-light-mode-only)
-![gdsc-logo](./docs/assets/gdsc-light.png#gh-dark-mode-only)
+![gdsc-logo](../docs/assets/api.png)
+![gdsc-logo](../docs/assets/gdsc-light.png#gh-dark-mode-only)
 
 # How can I participate?
 
@@ -9,7 +9,7 @@ Here you can watch and even participate in the development on the TTU GDSC Raide
 
 Super basic stuff, we have templates in place and video tutoriasl so no stress. If you have questions as well, always feel free to reach out!
 
-### Issues available for community contribution:
+## Issues available for community contribution:
 
 - You'll see a `help wanted` tag on features that we're looking to add
 - You don't need our permission to work on one of these issues
@@ -18,7 +18,7 @@ Super basic stuff, we have templates in place and video tutoriasl so no stress. 
 
 If you want to try and tackle one of these issues you would fork the repository and follow any guides found in the [Readme](../README.md).
 
-### Member proposed issues
+## Member proposed issues
 
 If you feel like there's a feature that the website should definitely have then bring you would follow these steps
 
@@ -40,7 +40,7 @@ Any hypothetical other routes you can take if plan A is impossible or just not f
 **Additional context**
 Add any other context or screenshots about the feature request here.
 
-### Issues not available for community contribution:
+## Issues not available for community contribution:
 
 These issues will be marked `🔒 staff only`.
 `🔒 staff only` issues require infrastructure access or institutional knowledge that would be impractical to provide to the community, think api keys or continuous integration changes.
