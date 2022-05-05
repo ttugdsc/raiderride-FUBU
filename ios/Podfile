@@ -1,12 +1,14 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+
 platform :ios, '11.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'RaiderRide' do
   config = use_native_modules!
   pod 'react-native-config/Extension', :path => '../node_modules/react-native-config'
+  pod 'RNDevMenu', :path => '../node_modules/react-native-dev-menu'
 
   # Flags change depending on the env values.
   flags = get_default_flags()

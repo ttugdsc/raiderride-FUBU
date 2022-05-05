@@ -7,6 +7,10 @@
 ![size](https://img.shields.io/github/languages/code-size/ttugdsc/raiderride-FUBU?style=flat-square)
 ![last-commit](https://img.shields.io/github/last-commit/ttugdsc/raiderride-FUBU?style=flat-square)
 
+<!--- Delete Me if Merged with Main --->
+
+> Note: This is a testing branch to try and work out ideas for future branches. There are no plans to open a PR for this branch at any point.
+
 An effort to replace Texas Tech University's current ridesharing solution
 
 Here you can watch and even participate in the development on a student-built ridesharing app.

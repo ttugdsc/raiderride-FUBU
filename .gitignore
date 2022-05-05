@@ -65,3 +65,4 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 ios/tmp.xcconfig
+.all-contributorsrc
