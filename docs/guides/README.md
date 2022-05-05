@@ -1,4 +1,5 @@
-<img src="../assets/guides.png">
+![gdsc-logo](../assets/gdsc.png#gh-light-mode-only)
+![gdsc-logo](../assets/gdsc-light.png#gh-dark-mode-only)
 
 # Welcome to Guides and Tutorials Docs
 

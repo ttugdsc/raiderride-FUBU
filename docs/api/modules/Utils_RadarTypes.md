@@ -27,7 +27,7 @@ The response code from Radar, which should normally be 200
 
 #### Defined in
 
-[Utils/RadarTypes.ts:14](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Utils/RadarTypes.ts#L14)
+coding/raiderride-FUBU/src/Utils/RadarTypes.ts:14
 
 ___
 
@@ -62,7 +62,7 @@ An address returned by the radar API
 
 #### Defined in
 
-[Utils/RadarTypes.ts:25](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Utils/RadarTypes.ts#L25)
+coding/raiderride-FUBU/src/Utils/RadarTypes.ts:25
 
 ___
 
@@ -81,7 +81,7 @@ Represents a autocomplete result from the Radar API
 
 #### Defined in
 
-[Utils/RadarTypes.ts:5](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Utils/RadarTypes.ts#L5)
+coding/raiderride-FUBU/src/Utils/RadarTypes.ts:5
 
 ___
 
@@ -98,4 +98,4 @@ ___
 
 #### Defined in
 
-[Utils/RadarTypes.ts:111](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Utils/RadarTypes.ts#L111)
+coding/raiderride-FUBU/src/Utils/RadarTypes.ts:111

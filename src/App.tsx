@@ -62,10 +62,22 @@ export type GlobalContext = {
    * The hook to set the user data state.
    */
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  /**
+   * The authentication reducer state.
+   */
   authData: AuthData;
+  /**
+   * Used to change the state of the authentication instead of directly calling
+   * the reducer dispatch
+   *
+   * See {@linkcode AuthManager} for more details
+   */
   authManager: AuthManager;
 };
 
+/**
+ * The data stored in authData value of the GlobalContext
+ */
 export type AuthData = {
   isLoading: boolean;
   isSignout: boolean;
@@ -114,7 +126,7 @@ export type AuthManager = {
    * globalState.authManager.signIn()
    * ```
    */
-  signIn: (navigation: NavigationProp<any, any>) => void;
+  signIn: () => void;
   /**
    * Sign out of the application. This function is not async.
    */
@@ -137,6 +149,10 @@ if (Config.MODE !== 'prod') {
   };
 }
 
+/**
+ * Basically, this is used to add a button that clears the authStorage object
+ * for debug purposes.
+ */
 if (__DEV__) {
   const DevMenu = require('react-native-dev-menu');
   DevMenu.addItem('Clear Auth Storage', () => {
@@ -144,6 +160,10 @@ if (__DEV__) {
   });
 }
 
+/**
+ * Loads the user data that is currently in persistent state.
+ * @returns {UserData} The UserData loaded from the persistent state.
+ */
 const loadSavedUserData = (): UserData => {
   let firstName: string = '';
   if (authStorage.contains('firstName')) {
@@ -156,15 +176,23 @@ const loadSavedUserData = (): UserData => {
   };
 };
 
+/**
+ * Stores a value into the persistant state.
+ * @param userData The data to store
+ */
 const saveUserData = (userData: UserData): void => {
   authStorage.set('firstName', userData.name);
 };
 
+type Action =
+  | {type: 'RESTORE'; token: string | null}
+  | {type: 'SIGN_IN'; token: string | null}
+  | {type: 'SIGN_OUT'};
+
 /**
  * The root component for the entire app. Mainly used to store navigation, but
  * could be used to store authentication state.
- * @component
- * @
+ * @component App
  */
 const App = () => {
   /* ------------------------- Global State Variables ------------------------- */
@@ -172,7 +200,7 @@ const App = () => {
   /* -------------------------------------------------------------------------- */
 
   const [state, dispatch] = React.useReducer(
-    (prevState, action) => {
+    (prevState: AuthData, action: Action): AuthData => {
       switch (action.type) {
         case 'RESTORE':
           return {
