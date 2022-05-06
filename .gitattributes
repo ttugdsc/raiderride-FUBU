@@ -1,0 +1,6 @@
+special-vendored-path/* linguist-vendored
+*.ts typescript linguist-vendored=false
+*.tsx typescript linguist-vendored=false
+*.js javascript linguist-vendored=false
+*.tsx typescript linguist-vendored=false
+docs/* linguist-documentation 
