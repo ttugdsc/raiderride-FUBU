@@ -25,4 +25,4 @@ component.
 
 #### Defined in
 
-[Components/Common/RaiderRideHeader.tsx:24](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/Components/Common/RaiderRideHeader.tsx#L24)
+coding/raiderride-FUBU/src/Components/Common/RaiderRideHeader.tsx:24

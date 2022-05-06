@@ -15,6 +15,19 @@ const def: GlobalContext = {
       "AppContext is using it's default value. This is likely an error.",
     );
   },
+  authData: {
+    isLoading: false,
+    isSignout: false,
+    userToken: null,
+  },
+  authManager: {
+    signIn: function (): void {
+      throw new Error('Function not implemented.');
+    },
+    signOut: function (): void {
+      throw new Error('Function not implemented.');
+    },
+  },
 };
 
 /**
