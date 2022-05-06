@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: "(feat)"
+title: "(feat): "
 labels: "\U0001F6A6 awaiting triage, enhancement"
 assignees: Guysnacho
 

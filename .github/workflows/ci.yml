@@ -1,5 +1,5 @@
 on: #8
-  pull_request:
+  [pull_request, push]
     branches: [ main ]
 jobs:
   QualityChecks: # Code quality checks
