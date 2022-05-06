@@ -128,7 +128,8 @@ export type AuthManager = {
    */
   signIn: () => void;
   /**
-   * Sign out of the application. This function is not async.
+   * Sign out of the application.
+   *
    */
   signOut: () => void;
 };
@@ -184,6 +185,10 @@ const saveUserData = (userData: UserData): void => {
   authStorage.set('firstName', userData.name);
 };
 
+/**
+ * This represents a possible action for the authetication reducer.
+ * It's mainly used to type check the reducer.
+ */
 type Action =
   | {type: 'RESTORE'; token: string | null}
   | {type: 'SIGN_IN'; token: string | null}
@@ -229,22 +234,35 @@ const App = () => {
     },
   );
 
+  /**
+   * This useEffect is the inital bootstrap for the application.
+   * It's primary job is to check the status of the refresh token or access token.
+   */
   useEffect(() => {
     const tryRefresh = async () => {
+      /**
+       * Represents our refresh token. This can, and will be undefined at times.
+       */
       let refreshToken: string | undefined;
+      /**
+       * Represents our access token, the definition of this token is very important,
+       * and if it remains undefined after the try block it will dispatch null as the token value.
+       */
       let accessToken: string | undefined;
       try {
-        let expiresIn = authStorage.getString('tokenExpires');
-        let expiresDate = moment(expiresIn);
+        let expiresIn = authStorage.getString('tokenExpires'); // This should be set if we have a refresh token.
+        let expiresDate = moment(expiresIn); // Convert it to a moment object.
         if (
           expiresIn !== undefined &&
-          moment().subtract(5, 'minutes').isAfter(expiresDate)
+          moment().subtract(5, 'minutes').isAfter(expiresDate) // If the access token is expired or will expire shortly
         ) {
-          refreshToken = authStorage.getString('refreshToken');
+          refreshToken = authStorage.getString('refreshToken'); // Get our refresh token from our storage
           if (refreshToken !== undefined) {
+            //If the refresh token is set:
             console.info(
               'AUTH MANAGER: Access token expired, attempting to use refresh token.',
             );
+            // Create the API url:
             let refreshParams = new URLSearchParams();
             refreshParams.append(
               'client_id',
@@ -253,6 +271,7 @@ const App = () => {
             refreshParams.append('refresh_token', refreshToken as string);
             refreshParams.append('grant_type', 'refresh_token');
 
+            // Request a new access token using our Refresh token:
             let response = await axios.post(
               'https://login.microsoftonline.com/178a51bf-8b20-49ff-b655-56245d5c173c/oauth2/v2.0/token/',
               refreshParams,
@@ -263,26 +282,30 @@ const App = () => {
               },
             );
 
-            authStorage.set('refreshToken', response.data.refresh_token);
-            authStorage.set('accessToken', response.data.access_token);
+            authStorage.set('refreshToken', response.data.refresh_token); // Update our storage to contain the new tokens
+            authStorage.set('accessToken', response.data.access_token); // Update our storage to contain the new token
             authStorage.set(
               'tokenExpires',
               moment().add(response.data.expires_in, 'seconds').toString(),
-            );
-            accessToken = response.data.access_token;
+            ); // Update the expiration date
+
+            accessToken = response.data.access_token; // Finally, set our access token:
           }
         } else {
+          // This means that we can still use the last access token:
           console.info('AUTH MANAGER: Access token is still valid - restoring');
-          accessToken = authStorage.getString('accessToken');
+          accessToken = authStorage.getString('accessToken'); // Grab our stored access token;
         }
       } catch (e: AxiosError | any) {
+        // Error Handling:
         console.info('Could not restore refresh token.');
         console.error(e.response?.data);
       }
 
       if (accessToken === undefined) {
-        dispatch({type: 'RESTORE', token: null});
+        dispatch({type: 'RESTORE', token: null}); // If we didn't define the access token, we can go ahead and just dispatch it as null.
       } else {
+        //This bit updates the data and serves as check to make sure that the access token works.
         let graphResponse = await axios.get(
           'https://graph.microsoft.com/v1.0/me',
           {
@@ -294,31 +317,38 @@ const App = () => {
 
         setUserData({
           name: graphResponse.data.givenName,
-        });
+        }); // Set the userData state
 
         saveUserData({
           name: graphResponse.data.givenName,
-        });
+        }); // Persist the userData state
 
-        dispatch({type: 'RESTORE', token: accessToken});
+        dispatch({type: 'RESTORE', token: accessToken}); // Dispatch our auth reducer.
       }
     };
     tryRefresh();
   }, []);
 
-  const authManager = React.useMemo(() => {
+  /**
+   * This is the authManager used in the global state. It's wrapped in a useMemo hook for performance optimization reasons.
+   *
+   */
+  const authManager: AuthManager = React.useMemo(() => {
     return {
       signIn: () => {
+        // First things first, we need to remove all listeners for the deep link if they exist.
+        Linking.removeAllListeners('url');
+
+        //Now, we will add a new listener for our application URI, which is raiderride://
         Linking.addEventListener('url', data => {
-          Linking.removeAllListeners('url');
+          Linking.removeAllListeners('url'); // Clear the listener so it doesn't fire twice.
 
-          const returnURL = new URL(data.url);
-          if (returnURL.searchParams.get('error') === null) {
-            Alert.alert(
-              'Successful Authentication',
-              'Recieved successful authentication code.',
-            );
-
+          const returnURL = new URL(data.url); // Create a URL object from the reponse.
+          if (
+            returnURL.hostname === 'auth' &&
+            returnURL.searchParams.get('error') === null // If the url is at the right endpoint, and doesn't have the error query param.
+          ) {
+            // Send a request for an auth code.
             axios
               .post(
                 'https://login.microsoftonline.com/178a51bf-8b20-49ff-b655-56245d5c173c/oauth2/v2.0/token/',
@@ -336,16 +366,18 @@ const App = () => {
                 },
               )
               .then(response => {
+                // If the response isn't an error:
                 console.info('Recieved Refresh Token from Microsoft OAuth');
                 let res: TokenResponse = response.data;
 
-                authStorage.set('refreshToken', res.refresh_token);
-                console.log(res.refresh_token);
-                authStorage.set('accessToken', res.access_token);
+                authStorage.set('refreshToken', res.refresh_token); // Persist the refresh token.
+                authStorage.set('accessToken', res.access_token); // Persist the access token.
                 authStorage.set(
                   'tokenExpires',
                   moment().add(res.expires_in, 'seconds').toString(),
-                );
+                ); // Convert the expiration time into a moment object.
+
+                //Get the user data from the Graph API
                 axios
                   .get('https://graph.microsoft.com/v1.0/me', {
                     headers: {
@@ -355,7 +387,11 @@ const App = () => {
                   .then(graphResponse => {
                     setUserData({
                       name: graphResponse.data.givenName,
-                    });
+                    }); // Set the state
+
+                    saveUserData({
+                      name: graphResponse.data.givenName,
+                    }); // Persist the state
                   });
 
                 dispatch({type: 'SIGN_IN', token: res.access_token});
