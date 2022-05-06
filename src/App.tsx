@@ -33,6 +33,7 @@ import {URL, URLSearchParams} from 'react-native-url-polyfill';
 import {authStorage} from './Utils/Storage';
 import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {AuthHandler} from './Utils/AuthRequests';
 
 /**
  * This is the main navigation stack for the app.
@@ -84,13 +85,15 @@ export type AuthData = {
   userToken: string | null;
 };
 
+const authHandler = new AuthHandler();
+
 /**
  * A response from calling the /token endpoint from
  * the Microsoft OAuth2 api.
  *
  * @interface
  */
-interface TokenResponse {
+export interface TokenResponse {
   /**
    * The access token for calling the API.
    */
@@ -349,26 +352,13 @@ const App = () => {
             returnURL.searchParams.get('error') === null // If the url is at the right endpoint, and doesn't have the error query param.
           ) {
             // Send a request for an auth code.
-            axios
-              .post(
-                'https://login.microsoftonline.com/178a51bf-8b20-49ff-b655-56245d5c173c/oauth2/v2.0/token/',
-                qs.stringify({
-                  client_id: 'fc0978bf-d586-4d85-8933-5cea1cdd8ecf',
-                  code: returnURL.searchParams.get('code'),
-                  redirect_uri: 'raiderride://auth',
-                  scope: 'offline_access https://graph.microsoft.com/User.Read',
-                  grant_type: 'authorization_code',
-                }),
-                {
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                  },
-                },
-              )
-              .then(response => {
+            // returnURL.searchParams.get('code')
+
+            authHandler
+              .getAccessToken(returnURL.searchParams.get('code') as string)
+              .then(res => {
                 // If the response isn't an error:
                 console.info('Recieved Refresh Token from Microsoft OAuth');
-                let res: TokenResponse = response.data;
 
                 authStorage.set('refreshToken', res.refresh_token); // Persist the refresh token.
                 authStorage.set('accessToken', res.access_token); // Persist the access token.
