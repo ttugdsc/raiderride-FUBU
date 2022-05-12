@@ -327,9 +327,9 @@ const App = () => {
 
                 dispatch({type: 'SIGN_IN', token: res.access_token});
               })
-              .catch((err: AxiosError) => {
+              .catch((err: any) => {
                 console.error(err);
-                console.log(err.response?.data);
+                if (err instanceof AxiosError) console.log(err.response?.data);
                 dispatch({type: 'SIGN_IN', token: null});
               });
           })
