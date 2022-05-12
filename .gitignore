@@ -2,8 +2,6 @@
 #
 .DS_Store
 .env
-/setup.ts
-
 # Xcode
 #
 build/
