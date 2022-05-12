@@ -1,9 +1,4 @@
 'use strict';
-/**
- * This is a custom install script to create an appropriate .env file
- * and any other configurations for creating a RaiderRide development
- * environment
- */
 var __createBinding =
   (this && this.__createBinding) ||
   (Object.create
@@ -208,11 +203,17 @@ var __importDefault =
     return mod && mod.__esModule ? mod : {default: mod};
   };
 exports.__esModule = true;
+/**
+ * This is a custom install script to create an appropriate .env file
+ * and any other configurations for creating a RaiderRide development
+ * enviorment.
+ */
 var chalk = require('chalk');
 var listr2_1 = require('listr2');
 var execa_1 = __importDefault(require('execa'));
 var fs = __importStar(require('fs'));
-var rl = __importStar(require('readline'));
+require('dotenv').config();
+var process_1 = require('process');
 console.log(chalk.blueBright('\nChecking raiderRide dev environment:'));
 function sleep(ms) {
   return new Promise(function (resolve) {
@@ -226,7 +227,7 @@ var context = {
 var checks = new listr2_1.Listr(
   [
     {
-      title: '🧶  Checking for Yarn',
+      title: '🧶 Checking for Yarn',
       task: function (ctx, task) {
         return __awaiter(void 0, void 0, void 0, function () {
           return __generator(this, function (_a) {
@@ -237,9 +238,8 @@ var checks = new listr2_1.Listr(
                 _a.sent();
                 return [
                   2 /*return*/,
-                  (0, execa_1.default)('yarn', ['--version'], {
-                    shell: true,
-                    preferLocal: true,
+                  (0, execa_1.default)('yarn --version', {
+                    shell: process_1.platform !== 'win32' ? true : false,
                   })
                     .catch(function () {
                       ctx.hasYarn = false;
@@ -262,7 +262,7 @@ var checks = new listr2_1.Listr(
       },
     },
     {
-      title: '🔎  Checking for DotEnv file',
+      title: '📄 Checking for DotEnv file',
       enabled: function (ctx) {
         return ctx.hasYarn === true;
       },
@@ -281,6 +281,7 @@ var checks = new listr2_1.Listr(
                     .catch(function () {
                       task.output = 'Could not Find DotEnv File.';
                       ctx.hasEnv = false;
+                      throw new Error('Checking for DotEnv file');
                     })
                     .then(function () {
                       task.output = 'Found DotEnv file';
@@ -296,98 +297,189 @@ var checks = new listr2_1.Listr(
       },
     },
     {
-      title: '✍  Creating DotEnv File',
+      title: '✍ Creating DotEnv File',
       enabled: function (ctx) {
-        return ctx.hasEnv === false && ctx.hasYarn === true;
+        return ctx.hasEnv === false;
       },
       task: function (ctx, task) {
-        return __awaiter(void 0, void 0, void 0, function () {
-          return __generator(this, function (_a) {
-            switch (_a.label) {
-              case 0:
-                return [4 /*yield*/, sleep(1000)];
-              case 1:
-                _a.sent();
-                fs.promises
-                  .writeFile('./.env', 'MODE=DEV\nRADAR_API_KEY=REPLACE_ME')
-                  .catch(function () {
-                    throw new Error(
-                      'Could not create DotEnv file. You should create it manually.',
-                    );
-                  })
-                  .then(function () {
-                    ctx.hasEnv = true;
-                    task.output = 'Successfully Created DotEnv File.';
-                  });
-                return [2 /*return*/];
-            }
+        fs.promises
+          .writeFile(
+            './.env',
+            'MODE=DEV\nRADAR_API_KEY=REPLACE_ME\nTENANT=common',
+          )
+          .catch(function () {
+            throw new Error(
+              'Could not create DotEnv file. You should create it manually.',
+            );
+          })
+          .then(function () {
+            ctx.hasEnv = true;
+            task.output = 'Successfully Created DotEnv File.';
           });
-        });
       },
       options: {
         persistentOutput: true,
       },
     },
+    {
+      title: '🔍 Validating DotEnv File',
+      enabled: function (ctx) {
+        return ctx.hasEnv === true;
+      },
+      task: function (ctx, task) {
+        return task.newListr(
+          [
+            {
+              title: 'Checking for Application Mode',
+              task: function (ctx, sub) {
+                return __awaiter(void 0, void 0, void 0, function () {
+                  return __generator(this, function (_a) {
+                    switch (_a.label) {
+                      case 0:
+                        if (!(process.env.MODE !== undefined)) {
+                          return [3 /*break*/, 1];
+                        }
+                        sub.output = 'MODE is set as: '.concat(
+                          chalk.blueBright(process.env.MODE),
+                        );
+                        sub.title = 'Found Application Mode';
+                        return [3 /*break*/, 4];
+                      case 1:
+                        sub.title = 'MODE not found, adding...';
+                        return [
+                          4 /*yield*/,
+                          fs.promises.appendFile('.env', '\nMODE=DEV'),
+                        ];
+                      case 2:
+                        _a.sent();
+                        return [4 /*yield*/, sleep(1000)];
+                      case 3:
+                        _a.sent();
+                        sub.output =
+                          'MODE was added to env, with default value: ' +
+                          chalk.blueBright('DEV');
+                        _a.label = 4;
+                      case 4:
+                        return [2 /*return*/];
+                    }
+                  });
+                });
+              },
+              options: {
+                persistentOutput: true,
+              },
+            },
+            {
+              title: 'Checking for Radar API key',
+              task: function (ctx, sub) {
+                return __awaiter(void 0, void 0, void 0, function () {
+                  return __generator(this, function (_a) {
+                    switch (_a.label) {
+                      case 0:
+                        if (!(process.env.RADAR_API_KEY !== undefined)) {
+                          return [3 /*break*/, 1];
+                        }
+                        sub.output = 'RADAR_API_KEY is set as: '.concat(
+                          chalk.blueBright(process.env.RADAR_API_KEY),
+                        );
+                        sub.title = 'Found Radar API Key';
+                        if (process.env.RADAR_API_KEY === 'REPLACE_ME') {
+                          sub.output =
+                            chalk.yellow('WARN: ') +
+                            'RADAR_API_KEY is set to its default value.\n   See the guides section of the docs for more info.';
+                        }
+                        return [3 /*break*/, 4];
+                      case 1:
+                        sub.title = 'RADAR_API_KEY not found, adding...';
+                        return [
+                          4 /*yield*/,
+                          fs.promises.appendFile(
+                            '.env',
+                            '\nRADAR_API_KEY=REPLACE_ME',
+                          ),
+                        ];
+                      case 2:
+                        _a.sent();
+                        return [4 /*yield*/, sleep(1000)];
+                      case 3:
+                        _a.sent();
+                        sub.output =
+                          chalk.yellow('WARN: ') +
+                          'RADAR_API_KEY was set to its default value.\n   See the guides section of the docs for more info.';
+                        _a.label = 4;
+                      case 4:
+                        return [2 /*return*/];
+                    }
+                  });
+                });
+              },
+              options: {
+                persistentOutput: true,
+              },
+            },
+            {
+              title: 'Checking for OAuth Tenant Value',
+              task: function (ctx, sub) {
+                return __awaiter(void 0, void 0, void 0, function () {
+                  return __generator(this, function (_a) {
+                    switch (_a.label) {
+                      case 0:
+                        if (!(process.env.TENANT !== undefined)) {
+                          return [3 /*break*/, 1];
+                        }
+                        sub.title = 'Found OAuth Tenant Value';
+                        sub.output = 'TENANT is set as: '.concat(
+                          chalk.blueBright(process.env.TENANT),
+                        );
+                        if (process.env.TENANT === 'common') {
+                          sub.output =
+                            chalk.yellow('WARN: ') +
+                            'TENANT is set to its default value, you should change this to the OAuth tenant for the application.\n  See the guides section of the docs for more info.';
+                        }
+                        return [3 /*break*/, 4];
+                      case 1:
+                        sub.title = 'TENANT was not found, adding...';
+                        return [
+                          4 /*yield*/,
+                          fs.promises.appendFile('.env', '\nTENANT=common'),
+                        ];
+                      case 2:
+                        _a.sent();
+                        return [4 /*yield*/, sleep(1000)];
+                      case 3:
+                        _a.sent();
+                        sub.output =
+                          chalk.yellow('WARN: ') +
+                          'TENANT was set to its default value, you should change this to the OAuth tenant for the application.\n   See the guides section of the docs for more info.';
+                        _a.label = 4;
+                      case 4:
+                        return [2 /*return*/];
+                    }
+                  });
+                });
+              },
+              options: {
+                persistentOutput: true,
+              },
+            },
+          ],
+          {
+            concurrent: false,
+            rendererOptions: {collapse: false},
+          },
+        );
+      },
+    },
   ],
   {
     ctx: context,
-    exitOnError: true,
+    exitOnError: false,
     concurrent: false,
     rendererOptions: {collapse: false},
   },
 );
-checks
-  .run()
-  .catch(function () {
-    var cons = rl.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    cons.question(
-      chalk.blue(chalk.bold('\n?')) +
-        ' Would you like to install Yarn?' +
-        chalk.dim(' (yes/no)') +
-        ' ',
-      function (ans) {
-        return __awaiter(void 0, void 0, void 0, function () {
-          var task;
-          return __generator(this, function (_a) {
-            if (ans.toLowerCase() === 'yes' || ans.toLowerCase() === 'y') {
-              task = (0, execa_1.default)('npm install --global yarn', {
-                shell: true,
-              });
-              cons.close();
-              console.log(chalk.dim('$ npm install --global yarn'));
-              task.stdout.pipe(process.stdout);
-              task.then(function () {
-                console.log(
-                  'Yarn was successfully installed. Please run ' +
-                    chalk.blue('yarn install') +
-                    ' to continue setup.',
-                );
-                console.log(
-                  '\n🎉  ' +
-                    chalk.dim('Finished validating development environment'),
-                );
-              });
-            } else {
-              console.log(
-                'Yarn installation declined. It his highly recommended you use Yarn when developing for raiderRide.',
-              );
-              cons.close();
-            }
-            return [2 /*return*/];
-          });
-        });
-      },
-    );
-  })
-  .then(function (ctx) {
-    if (ctx) {
-      if (ctx.hasYarn && ctx.hasEnv) {
-        console.log(
-          '\n🎉  ' + chalk.dim('Finished validating development environment'),
-        );
-      }
-    }
-  });
+checks.run().then(function () {
+  console.log(
+    '\n✨ ' + chalk.dim('Finished validating development environment\n'),
+  );
+});

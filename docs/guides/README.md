@@ -1,4 +1,5 @@
-<img src="../assets/guides.png">
+![gdsc-logo](../assets/gdsc.png#gh-light-mode-only)
+![gdsc-logo](../assets/gdsc-light.png#gh-dark-mode-only)
 
 # Welcome to Guides and Tutorials Docs
 
@@ -8,5 +9,6 @@ raiderRide project, and help you work out any common issues that may arise.
 ### Current Guides and Tutorials:
 
 1. [Setting Up A Radar API Key](SetupRadar.md)
+2. [Setting the OAuth Tenant](TenantSetup.md)
 
 ## Happy Coding 🎉🙌

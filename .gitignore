@@ -2,8 +2,6 @@
 #
 .DS_Store
 .env
-/setup.ts
-
 # Xcode
 #
 build/
@@ -65,3 +63,4 @@ buck-out/
 /ios/Pods/
 /vendor/bundle/
 ios/tmp.xcconfig
+.all-contributorsrc

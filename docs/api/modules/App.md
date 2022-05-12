@@ -4,8 +4,14 @@
 
 ## Table of contents
 
+### Interfaces
+
+- [TokenResponse](../interfaces/App.TokenResponse.md)
+
 ### Type aliases
 
+- [AuthData](App.md#authdata)
+- [AuthManager](App.md#authmanager)
 - [GlobalContext](App.md#globalcontext)
 - [UserData](App.md#userdata)
 
@@ -14,6 +20,45 @@
 - [App](App.md#app)
 
 ## Type aliases
+
+### AuthData
+
+Ƭ **AuthData**: `Object`
+
+The data stored in authData value of the GlobalContext
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `isLoading` | `boolean` |
+| `isSignout` | `boolean` |
+| `userToken` | `string` \| ``null`` |
+
+#### Defined in
+
+coding/raiderride-FUBU/src/App.tsx:75
+
+___
+
+### AuthManager
+
+Ƭ **AuthManager**: `Object`
+
+Used to manage the authentication state as part of the global state.
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `signIn` | () => `void` |
+| `signOut` | () => `void` |
+
+#### Defined in
+
+coding/raiderride-FUBU/src/App.tsx:113
+
+___
 
 ### GlobalContext
 
@@ -27,12 +72,14 @@ This strictly defines the type of data stored in our global state.
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
+| `authData` | [`AuthData`](App.md#authdata) | The authentication reducer state. |
+| `authManager` | [`AuthManager`](App.md#authmanager) | Used to change the state of the authentication instead of directly calling the reducer dispatch  See [`AuthManager`](App.md#authmanager) for more details |
 | `setUserData` | `React.Dispatch`<`React.SetStateAction`<[`UserData`](App.md#userdata)\>\> | The hook to set the user data state. |
 | `userData` | [`UserData`](App.md#userdata) | The data for the user. (This will likely come from the backend.) |
 
 #### Defined in
 
-[App.tsx:41](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L41)
+coding/raiderride-FUBU/src/App.tsx:50
 
 ___
 
@@ -51,7 +98,7 @@ data to us.
 
 #### Defined in
 
-[App.tsx:32](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L32)
+coding/raiderride-FUBU/src/App.tsx:41
 
 ## Functions
 
@@ -62,8 +109,7 @@ data to us.
 The root component for the entire app. Mainly used to store navigation, but
 could be used to store authentication state.
 
-**`component`**
-@
+**`component`** App
 
 #### Returns
 
@@ -71,4 +117,4 @@ could be used to store authentication state.
 
 #### Defined in
 
-[App.tsx:74](https://github.com/jaxcksn/raiderride-FUBU/blob/e0d2a84/src/App.tsx#L74)
+coding/raiderride-FUBU/src/App.tsx:180

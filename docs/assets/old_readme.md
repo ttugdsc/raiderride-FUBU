@@ -1,4 +1,5 @@
-<img src="../assets/api.png" />
+![gdsc-logo](../assets/gdsc.png#gh-light-mode-only)
+![gdsc-logo](../assets/gdsc-light.png#gh-dark-mode-only)
 
 # Welcome to the API Docs
 
