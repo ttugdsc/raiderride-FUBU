@@ -1,9 +1,6 @@
 /**
  * @fileoverview The login home page component
  */
-
-import {faLock} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Button, Divider, Input, Layout, Text} from '@ui-kitten/components';
 import React, {useContext, useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
@@ -32,7 +29,7 @@ export interface LoginProps {
  * The login page component
  * @component
  */
-const Login = ({navigation}: LoginProps) => {
+const Login = ({}: LoginProps) => {
   /**
    * This is the global state from the context provider.
    */

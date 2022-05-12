@@ -370,6 +370,8 @@ PODS:
     - React-Core
     - React-Core/DevSupport
     - React-RCTNetwork
+  - RNInAppBrowser (3.6.3):
+    - React-Core
   - rnmapbox-maps (10.0.0-beta.1):
     - React
     - React-Core
@@ -448,6 +450,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNDevMenu (from `../node_modules/react-native-dev-menu`)
+  - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -544,6 +547,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNDevMenu:
     :path: "../node_modules/react-native-dev-menu"
+  RNInAppBrowser:
+    :path: "../node_modules/react-native-inappbrowser-reborn"
   rnmapbox-maps:
     :path: "../node_modules/@rnmapbox/maps"
   RNScreens:
@@ -604,6 +609,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 7285b499d0339104b2813a1f58ad1ada4adbd6c0
   ReactCommon: bf2888a826ceedf54b99ad1b6182d1bc4a8a3984
   RNDevMenu: fd325b5554b61fe7f48d9205a3877cf5ee88cd7c
+  RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
   rnmapbox-maps: 88a3b9f7bf769c1e821196c38bef05405485eae6
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8

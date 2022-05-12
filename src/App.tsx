@@ -4,36 +4,29 @@
 
 /* ------------------------------ React Imports ----------------------------- */
 import React, {useEffect, useState} from 'react';
-import Config from 'react-native-config';
 import AppContext from './Utils/AppContext';
 
 /* ------------------------ React Navigation Imports ------------------------ */
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 /* ------------------------------ Style Imports ----------------------------- */
 import * as eva from '@eva-design/eva';
-import {
-  ApplicationProvider,
-  Layout,
-  Spinner,
-  Text,
-} from '@ui-kitten/components';
+import {ApplicationProvider, Spinner, Text} from '@ui-kitten/components';
 import {raiderRideTheme} from './Styles/ui-kitten-theme';
 
 /* ------------------------------ Page Imports ------------------------------ */
 import Home from './Components/Home';
-import Login, {LoginProps} from './Components/Login';
-import {Alert, Linking, View} from 'react-native';
+import Login from './Components/Login';
+import {View} from 'react-native';
 
 /* --------------------------- Networking Imports --------------------------- */
 import axios, {AxiosError} from 'axios';
-import qs from 'qs';
-import {URL, URLSearchParams} from 'react-native-url-polyfill';
+import {URLSearchParams} from 'react-native-url-polyfill';
 import {authStorage} from './Utils/Storage';
 import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {AuthHandler} from './Utils/AuthRequests';
+import {authHandler} from './Utils/AuthHandler';
 
 /**
  * This is the main navigation stack for the app.
@@ -85,8 +78,6 @@ export type AuthData = {
   userToken: string | null;
 };
 
-const authHandler = new AuthHandler();
-
 /**
  * A response from calling the /token endpoint from
  * the Microsoft OAuth2 api.
@@ -136,22 +127,6 @@ export type AuthManager = {
    */
   signOut: () => void;
 };
-
-/**
- * Edit this value to set default user data settings.
- * Once we have more backend this we can create a type to match
- * this object.
- */
-let defaultSettings: UserData = {
-  name: 'UNDEFINED',
-};
-
-//For dev builds we can set some defaults that are prettier to look at.
-if (Config.MODE !== 'prod') {
-  defaultSettings = {
-    name: 'John',
-  };
-}
 
 /**
  * Basically, this is used to add a button that clears the authStorage object
@@ -289,7 +264,7 @@ const App = () => {
             authStorage.set('accessToken', response.data.access_token); // Update our storage to contain the new token
             authStorage.set(
               'tokenExpires',
-              moment().add(response.data.expires_in, 'seconds').toString(),
+              moment().add(response.data.expires_in, 'seconds').toISOString(),
             ); // Update the expiration date
 
             accessToken = response.data.access_token; // Finally, set our access token:
@@ -339,23 +314,11 @@ const App = () => {
   const authManager: AuthManager = React.useMemo(() => {
     return {
       signIn: () => {
-        // First things first, we need to remove all listeners for the deep link if they exist.
-        Linking.removeAllListeners('url');
-
-        //Now, we will add a new listener for our application URI, which is raiderride://
-        Linking.addEventListener('url', data => {
-          Linking.removeAllListeners('url'); // Clear the listener so it doesn't fire twice.
-
-          const returnURL = new URL(data.url); // Create a URL object from the reponse.
-          if (
-            returnURL.hostname === 'auth' &&
-            returnURL.searchParams.get('error') === null // If the url is at the right endpoint, and doesn't have the error query param.
-          ) {
-            // Send a request for an auth code.
-            // returnURL.searchParams.get('code')
-
+        authHandler
+          .getAuthCode()
+          .then(code => {
             authHandler
-              .getAccessToken(returnURL.searchParams.get('code') as string)
+              .getAccessToken(code)
               .then(res => {
                 // If the response isn't an error:
                 console.info('Recieved Refresh Token from Microsoft OAuth');
@@ -364,23 +327,18 @@ const App = () => {
                 authStorage.set('accessToken', res.access_token); // Persist the access token.
                 authStorage.set(
                   'tokenExpires',
-                  moment().add(res.expires_in, 'seconds').toString(),
+                  moment().add(res.expires_in, 'seconds').toISOString(),
                 ); // Convert the expiration time into a moment object.
 
-                //Get the user data from the Graph API
-                axios
-                  .get('https://graph.microsoft.com/v1.0/me', {
-                    headers: {
-                      Authorization: `Bearer ${res.access_token}`,
-                    },
-                  })
+                authHandler
+                  .getUserData(res.access_token)
                   .then(graphResponse => {
                     setUserData({
-                      name: graphResponse.data.givenName,
+                      name: graphResponse.givenName,
                     }); // Set the state
 
                     saveUserData({
-                      name: graphResponse.data.givenName,
+                      name: graphResponse.givenName,
                     }); // Persist the state
                   });
 
@@ -391,18 +349,11 @@ const App = () => {
                 console.log(err.response?.data);
                 dispatch({type: 'SIGN_IN', token: null});
               });
-          } else {
-            Alert.alert(
-              'Authentication Unsuccessful',
-              `The following error was given:\n${returnURL.searchParams.get(
-                'error',
-              )}`,
-            );
-          }
-        });
-        Linking.openURL(
-          'https://login.microsoftonline.com/178a51bf-8b20-49ff-b655-56245d5c173c/oauth2/v2.0/authorize?client_id=fc0978bf-d586-4d85-8933-5cea1cdd8ecf&response_type=code&redirect_uri=raiderride://auth&scope=https://graph.microsoft.com/User.Read',
-        );
+          })
+          .catch(err => {
+            console.error(err);
+            dispatch({type: 'SIGN_IN', token: null});
+          });
       },
       signOut: () => {
         dispatch({type: 'SIGN_OUT'});
