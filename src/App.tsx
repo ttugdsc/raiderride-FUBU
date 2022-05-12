@@ -252,8 +252,7 @@ const App = () => {
             accessToken = response.access_token; // Finally, set our access token:
           }
         } else {
-          // This means that we can still use the last access token:
-          console.info('AUTH MANAGER: Access token is still valid - restoring');
+          // This means that might be able to still use the last access token:
           accessToken = authStorage.getString('accessToken'); // Grab our stored access token;
         }
       } catch (e: AxiosError | any) {
