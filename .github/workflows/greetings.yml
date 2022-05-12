@@ -6,7 +6,6 @@ jobs:
   greeting:
     runs-on: ubuntu-latest
     steps:
-      steps:
       - uses: wow-actions/use-app-token@v1
         id: generate_token
         with:
