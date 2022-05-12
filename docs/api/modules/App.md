@@ -4,6 +4,10 @@
 
 ## Table of contents
 
+### Interfaces
+
+- [TokenResponse](../interfaces/App.TokenResponse.md)
+
 ### Type aliases
 
 - [AuthData](App.md#authdata)
@@ -33,7 +37,7 @@ The data stored in authData value of the GlobalContext
 
 #### Defined in
 
-coding/raiderride-FUBU/src/App.tsx:81
+coding/raiderride-FUBU/src/App.tsx:75
 
 ___
 
@@ -52,7 +56,7 @@ Used to manage the authentication state as part of the global state.
 
 #### Defined in
 
-coding/raiderride-FUBU/src/App.tsx:119
+coding/raiderride-FUBU/src/App.tsx:113
 
 ___
 
@@ -75,7 +79,7 @@ This strictly defines the type of data stored in our global state.
 
 #### Defined in
 
-coding/raiderride-FUBU/src/App.tsx:56
+coding/raiderride-FUBU/src/App.tsx:50
 
 ___
 
@@ -94,7 +98,7 @@ data to us.
 
 #### Defined in
 
-coding/raiderride-FUBU/src/App.tsx:47
+coding/raiderride-FUBU/src/App.tsx:41
 
 ## Functions
 
@@ -113,4 +117,4 @@ could be used to store authentication state.
 
 #### Defined in
 
-coding/raiderride-FUBU/src/App.tsx:197
+coding/raiderride-FUBU/src/App.tsx:180

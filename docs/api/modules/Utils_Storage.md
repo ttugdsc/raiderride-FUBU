@@ -14,6 +14,9 @@
 
 • `Const` **authStorage**: `MMKV`
 
+This is the authStorage provider.
+Powered by MMKV.
+
 #### Defined in
 
-coding/raiderride-FUBU/src/Utils/Storage.ts:9
+coding/raiderride-FUBU/src/Utils/Storage.ts:11

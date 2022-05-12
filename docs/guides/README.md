@@ -9,5 +9,6 @@ raiderRide project, and help you work out any common issues that may arise.
 ### Current Guides and Tutorials:
 
 1. [Setting Up A Radar API Key](SetupRadar.md)
+2. [Setting the OAuth Tenant](TenantSetup.md)
 
 ## Happy Coding 🎉🙌

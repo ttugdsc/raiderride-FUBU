@@ -34,4 +34,4 @@ The login page component
 
 #### Defined in
 
-coding/raiderride-FUBU/src/Components/Login.tsx:35
+coding/raiderride-FUBU/src/Components/Login.tsx:32
