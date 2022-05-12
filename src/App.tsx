@@ -22,7 +22,6 @@ import {View} from 'react-native';
 
 /* --------------------------- Networking Imports --------------------------- */
 import axios, {AxiosError} from 'axios';
-import {URLSearchParams} from 'react-native-url-polyfill';
 import {authStorage} from './Utils/Storage';
 import moment from 'moment';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -329,7 +328,9 @@ const App = () => {
               })
               .catch((err: any) => {
                 console.error(err);
-                if (err instanceof AxiosError) console.log(err.response?.data);
+                if (err instanceof AxiosError) {
+                  console.log(err.response?.data);
+                }
                 dispatch({type: 'SIGN_IN', token: null});
               });
           })
