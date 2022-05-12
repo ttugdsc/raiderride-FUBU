@@ -6,9 +6,16 @@ jobs:
   greeting:
     runs-on: ubuntu-latest
     steps:
+      steps:
+      - uses: wow-actions/use-app-token@v1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      
       - uses: actions/first-interaction@v1.1.0
         with:
-          repo-token: ${{ secrets.BOT_TOKEN }}
+          repo-token: ${{ steps.generate_token.outputs.token }}
           issue-message: '### Welcome to TTU GDSC 
           
           Since this is your first issue, we''ll share some important information for you to read before you get started:
