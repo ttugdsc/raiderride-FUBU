@@ -48,14 +48,20 @@ jobs:
       - name: Setup Node and Yarn
         uses: mskelton/setup-yarn@v1.2.1
 
+      - name: Install Dependencies
+        run: yarn install
+
       - name: Setup Java
         uses: actions/setup-java@v3.3.0
         with:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Install Dependencies
-        run: yarn install
+      - name: Make Gradlew Executable
+        run: cd android && chmod +x ./gradlew && cd ..
+
+      - name: Generate APK
+        run: cd android && ./gradlew assembleRelease --no-daemon && cd ..
 
       - name: Prepare IOS Build (This might take awhile if there isn't a cache)
         run: yarn run pod
@@ -65,6 +71,3 @@ jobs:
 
       - name: Build IOS App
         run: cd ios && xcodebuild -resolvePackageDependencies -workspace RaiderRide.xcworkspace -scheme RaiderRide -configuration Release -destination 'platform=iOS Simulator,name=iPhone 12,OS=15.0' -clonedSourcePackagesDirPath . | xcpretty && exit ${PIPESTATUS[0]}
-
-      - name: Generate APK
-        run: cd.. && cd android && ./gradlew assembleRelease --no-daemon
