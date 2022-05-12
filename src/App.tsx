@@ -240,34 +240,17 @@ const App = () => {
             console.info(
               'AUTH MANAGER: Access token expired, attempting to use refresh token.',
             );
-            // Create the API url:
-            let refreshParams = new URLSearchParams();
-            refreshParams.append(
-              'client_id',
-              'fc0978bf-d586-4d85-8933-5cea1cdd8ecf',
-            );
-            refreshParams.append('refresh_token', refreshToken as string);
-            refreshParams.append('grant_type', 'refresh_token');
 
-            // Request a new access token using our Refresh token:
-            let response = await axios.post(
-              'https://login.microsoftonline.com/178a51bf-8b20-49ff-b655-56245d5c173c/oauth2/v2.0/token/',
-              refreshParams,
-              {
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded',
-                },
-              },
-            );
+            let response = await authHandler.getFromRefreshToken(refreshToken);
 
-            authStorage.set('refreshToken', response.data.refresh_token); // Update our storage to contain the new tokens
-            authStorage.set('accessToken', response.data.access_token); // Update our storage to contain the new token
+            authStorage.set('refreshToken', response.refresh_token); // Update our storage to contain the new tokens
+            authStorage.set('accessToken', response.access_token); // Update our storage to contain the new token
             authStorage.set(
               'tokenExpires',
-              moment().add(response.data.expires_in, 'seconds').toISOString(),
+              moment().add(response.expires_in, 'seconds').toISOString(),
             ); // Update the expiration date
 
-            accessToken = response.data.access_token; // Finally, set our access token:
+            accessToken = response.access_token; // Finally, set our access token:
           }
         } else {
           // This means that we can still use the last access token:
