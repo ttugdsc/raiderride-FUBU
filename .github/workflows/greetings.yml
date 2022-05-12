@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/first-interaction@v1.1.0
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.BOT_TOKEN }}
           issue-message: '### Welcome to TTU GDSC 
           
           Since this is your first issue, we''ll share some important information for you to read before you get started:
@@ -17,6 +17,7 @@ jobs:
           
           2. By contributing, you agree to follow all [TTU GDSC and Google Community Guidelines](https://developers.google.com/community-guidelines)
           
+
           A maintainer will be looking at your issue and will comment shortly with any feedback, so keep your eyes peeled and happy coding 🎉'
           pr-message: '### Hi there, thanks for opening a PR!
           
