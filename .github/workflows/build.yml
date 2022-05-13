@@ -61,7 +61,7 @@ jobs:
         run: cd android && chmod +x ./gradlew && cd ..
 
       - name: Generate APK
-        run: cd android && ./gradlew assembleRelease --no-daemon && cd ..
+        run: cd android && ./gradlew assembleDebug --no-daemon && cd ..
 
       - name: Prepare IOS Build (This might take awhile if there isn't a cache)
         run: yarn run pod
