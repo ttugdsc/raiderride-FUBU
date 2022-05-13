@@ -1,0 +1,58 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build IOS
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    branches: [main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Restore pods from cache
+        uses: actions/cache@v3
+        with:
+          path: ios/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Restore node_modules from cache
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Create Env
+        run: touch .env
+      - name: Set Env
+        run: echo "MODE=DEV\nRADAR_API_KEY=REPLACE_ME\nTENANT=178a51bf-8b20-49ff-b655-56245d5c173c" > .env
+
+      - name: Setup Node and Yarn
+        uses: mskelton/setup-yarn@v1.2.1
+
+      - name: Prepare IOS Build (This might take awhile if there isn't a cache)
+        run: yarn run pod
+
+      - name: Prepare XCode
+        run: sudo xcode-select -switch /Applications/Xcode_13.0.app && /usr/bin/xcodebuild -version
+
+      - name: Build IOS App
+        run: cd ios && xcodebuild -resolvePackageDependencies -workspace RaiderRide.xcworkspace -scheme RaiderRide -configuration Release -destination 'platform=iOS Simulator,name=iPhone 12,OS=15.0' -clonedSourcePackagesDirPath . | xcpretty && exit ${PIPESTATUS[0]}
