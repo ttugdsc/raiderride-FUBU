@@ -6,6 +6,8 @@
 ![react-native](https://img.shields.io/badge/react--native-ios_&_android-%2361dafb?style=flat-square&logo=react)
 ![size](https://img.shields.io/github/languages/code-size/ttugdsc/raiderride-FUBU?style=flat-square)
 ![last-commit](https://img.shields.io/github/last-commit/ttugdsc/raiderride-FUBU?style=flat-square)
+![ios-status](https://img.shields.io/github/workflow/status/ttugdsc/raiderride-FUBU/Build%20IOS?label=IOS%20Build&logo=apple&logoColor=white&style=flat-square)
+![android-status](https://img.shields.io/github/workflow/status/ttugdsc/raiderride-FUBU/Build%20Android?label=Android%20Build&logo=android&logoColor=white&style=flat-square)
 
 An effort to replace Texas Tech University's current ridesharing solution
 

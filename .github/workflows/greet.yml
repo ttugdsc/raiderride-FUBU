@@ -1,0 +1,38 @@
+name: Greetings!
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wow-actions/use-app-token@v1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+          fallback: ${{ secrets.GITHUB_TOKEN }}
+      
+      - uses: actions/first-interaction@v1.1.0
+        with:
+          repo-token: ${{ steps.generate_token.outputs.token }}
+          issue-message: '### Welcome to TTU GDSC 
+          
+          Since this is your first issue, we''ll share some important information for you to read before you get started:
+          
+          1. Make sure to read our [contribution guidelines](https://github.com/ttugdsc/raiderride-FUBU/blob/main/.github/CONTRIBUTING.md)
+          
+          2. By contributing, you agree to follow all [TTU GDSC and Google Community Guidelines](https://developers.google.com/community-guidelines)
+          
+
+          A maintainer will be looking at your issue and will comment shortly with any feedback, so keep your eyes peeled and happy coding 🎉'
+          pr-message: '### Hi there, thanks for opening a PR!
+          
+          Since this is your first PR, we''ll go over some things real quick.
+          1. Make sure your PR and code conforms to our [contributing guidelines](https://github.com/ttugdsc/raiderride-FUBU/blob/main/.github/CONTRIBUTING.md)
+          
+          2. GitHub is going to attempt to build for both Android and IOS, this might take a few minutes.
+          
+          3. Your commits will be squashed upon merging.
+          
+          Once the checks have passed and your PR has been reviewed we''ll go ahead and merge your branch into ours. Thanks again for participating!'
